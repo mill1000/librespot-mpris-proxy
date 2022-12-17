@@ -101,7 +101,7 @@ async def main():
 
     # Acquire our friendly name
     # TODO generate this on demand?
-    name = f"org.mpris.MediaPlayer2.librespot_mpris_proxy.pid{os.getpid()}"
+    name = f"org.mpris.MediaPlayer2.librespot_proxy.pid{os.getpid()}"
     print(f"Requesting friendly name '{name}' on bus.")
     await bus.request_name(name)
 
