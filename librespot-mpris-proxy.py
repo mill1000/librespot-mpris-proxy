@@ -124,6 +124,10 @@ async def main():
         print(f"Set Playback Status: {status}")
         player.set_playback_status(status)
 
+        # Sleep to allow async tasks to run before blocking again
+        # TODO might want to re-eval aiofiles
+        await asyncio.sleep(1)
+
 try:
     asyncio.run(main())
 except KeyboardInterrupt:
