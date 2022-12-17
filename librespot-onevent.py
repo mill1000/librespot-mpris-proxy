@@ -21,10 +21,10 @@ print(f"Received librespot event: '{event}' -> '{dbus_event}'.")
 
 fifo = "/tmp/librespot-mpris-proxy"
 if stat.S_ISFIFO(os.stat(fifo).st_mode) is False:
-  print(f"{fifo} is not a named pipe.")
-  exit(1)
+    print(f"{fifo} is not a named pipe.")
+    exit(1)
 
 with open(fifo, "a") as f:
-  print(f"Playback Status: {dbus_event}", file=f)
+    print(f"Playback Status: {dbus_event}", file=f)
 
 exit()

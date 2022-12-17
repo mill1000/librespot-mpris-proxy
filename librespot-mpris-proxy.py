@@ -107,7 +107,7 @@ async def main():
     try:
         os.remove(fifo)
     except FileNotFoundError:
-        pass;
+        pass
     os.mkfifo(fifo)
 
     while True:
