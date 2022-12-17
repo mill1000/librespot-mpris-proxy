@@ -124,11 +124,7 @@ async def main():
         print(f"Received: '{contents}' -> Status: {status}")
         player.set_playback_status(status)
 
-    # Wait for bus to disconnect
-    await bus.wait_for_disconnect()
-
-
 try:
-    asyncio.get_event_loop().run_until_complete(main())
+    asyncio.run(main())
 except KeyboardInterrupt:
-    exit(0)
+    pass
