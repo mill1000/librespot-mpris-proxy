@@ -32,11 +32,11 @@ class MediaPlayer2Interface(ServiceInterface):
         return False
 
     @dbus_property(name="HasTrackList", access=PropertyAccess.READ)
-    def can_raise(self) -> "b":
+    def has_track_list(self) -> "b":
         return False
 
     @dbus_property(name="Identity", access=PropertyAccess.READ)
-    def can_raise(self) -> "s":
+    def identity(self) -> "s":
         return "MPRIS-Proxy"
 
 
