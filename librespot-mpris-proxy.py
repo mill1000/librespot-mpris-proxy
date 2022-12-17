@@ -11,8 +11,10 @@ import re
 import pidfile
 import time
 
-# MPRIS MediaPlayer2 interface
+
 class MediaPlayer2Interface(ServiceInterface):
+    """MPRIS MediaPlayer2 Tnterface"""
+
     def __init__(self):
         super().__init__("org.mpris.MediaPlayer2")
 
@@ -37,8 +39,10 @@ class MediaPlayer2Interface(ServiceInterface):
     def can_raise(self) -> "s":
         return "MPRIS-Proxy"
 
-# MPRIS MediaPlayer2 Player interface
+
 class MediaPlayer2PlayerInterface(ServiceInterface):
+    """MPRIS MediaPlayer2 Player Tnterface"""
+
     def __init__(self):
         super().__init__("org.mpris.MediaPlayer2.Player")
 
