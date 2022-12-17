@@ -6,10 +6,7 @@ from dbus_next import BusType, PropertyAccess
 
 import os
 import asyncio
-import aiofiles
 import re
-import pidfile
-import time
 
 
 class MediaPlayer2Interface(ServiceInterface):
@@ -114,8 +111,10 @@ async def main():
     os.mkfifo(fifo)
 
     while True:
-        async with aiofiles.open(fifo, mode="r") as f:
-            contents = await f.read()
+        # Blocking IO should be ok since we don't need to interact
+        # with the DBus until we get an update
+        with open(fifo, mode="r") as f:
+            contents = f.read()
 
         matches = re.match("Playback Status: (\w+)", contents)
         if matches is None:
