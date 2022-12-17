@@ -120,8 +120,8 @@ async def main():
         if matches is None:
             continue
 
-        status = matches.group(0)
-        print(f"Received: '{contents}' -> Status: {status}")
+        status = matches.group(1)
+        print(f"Set Playback Status: {status}")
         player.set_playback_status(status)
 
 try:
