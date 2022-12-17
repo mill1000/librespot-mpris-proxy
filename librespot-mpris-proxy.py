@@ -103,7 +103,7 @@ async def main():
     await bus.request_name(name)
 
     # Create the named pipe
-    fifo = "/var/run/librespot-mpris-proxy"
+    fifo = "/tmp/librespot-mpris-proxy"
     try:
         os.remove(fifo)
     except FileNotFoundError:

@@ -19,8 +19,7 @@ if event not in SUPPORTED_EVENTS:
 dbus_event = SUPPORTED_EVENTS[event]
 print(f"Received librespot event: '{event}' -> '{dbus_event}'.")
 
-fifo = "/tmp/librespot-dbus"
-
+fifo = "/tmp/librespot-mpris-proxy"
 if stat.S_ISFIFO(os.stat(fifo).st_mode) is False:
   print(f"{fifo} is not a named pipe.")
   exit(1)
