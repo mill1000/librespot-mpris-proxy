@@ -5,6 +5,7 @@ from dbus_next.service import ServiceInterface, dbus_property
 from dbus_next import BusType, PropertyAccess
 
 import os
+import stat
 import asyncio
 import re
 
@@ -109,6 +110,7 @@ async def main():
     except FileNotFoundError:
         pass
     os.mkfifo(fifo)
+    os.chmod(fifo, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH | stat.S_IWOTH)
 
     while True:
         # Blocking IO should be ok since we don't need to interact
