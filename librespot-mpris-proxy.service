@@ -1,0 +1,13 @@
+[Unit]
+Description=librespot-mpris-proxy
+After=dbus.service network-online.target
+Wants=dbus.service network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/librespot-mpris-proxy
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=librespot-mpris-monitor
+
+[Install]
+WantedBy=multi-user.target
