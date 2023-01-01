@@ -9,7 +9,8 @@ SYSTEMD_POLICY_PATH ?= /etc/dbus-1/system.d
 
 MKDIR_P ?= mkdir -p
 
-default: install
+default:
+	$(info Nothing to build. Run make install.)
 
 install-systemd: $(SYSTEMD_SERVICE_NAME)
 	cp -u $< $(SYSTEMD_SERVICE_PATH)
