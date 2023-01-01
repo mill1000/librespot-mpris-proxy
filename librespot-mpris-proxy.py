@@ -110,7 +110,8 @@ async def main():
     except FileNotFoundError:
         pass
     os.mkfifo(fifo)
-    os.chmod(fifo, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP | stat.S_IWGRP | stat.S_IROTH | stat.S_IWOTH)
+    os.chmod(fifo, stat.S_IRUSR | stat.S_IWUSR | stat.S_IRGRP |
+             stat.S_IWGRP | stat.S_IROTH | stat.S_IWOTH)
 
     while True:
         # Blocking IO should be ok since we don't need to interact
