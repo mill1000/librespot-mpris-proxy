@@ -19,20 +19,17 @@ install-systemd: $(SYSTEMD_SERVICE_NAME)
 	systemctl enable $(SYSTEMD_SERVICE_NAME)
 	systemctl start $(SYSTEMD_SERVICE_NAME)
 
-install-bin: $(TARGET_NAME).py 
+install-bin: $(TARGET_NAME).py $(ONEVENT_NAME).py
 	@$(MKDIR_P) $(DESTDIR)$(PREFIX)/bin
 	cp $< $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
 	chmod +x $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
-
-install-onevent: $(ONEVENT_NAME).py 
-	@$(MKDIR_P) $(DESTDIR)$(PREFIX)/bin
 	cp $< $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
 	chmod +x $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
 
 install-policy: $(SYSTEMD_POLICY_NAME)
 	cp $< $(SYSTEMD_POLICY_PATH)/
 
-install: install-bin install-onevent install-policy install-systemd
+install: install-bin install-policy install-systemd
 
 uninstall-systemd:
 	systemctl disable $(SYSTEMD_SERVICE_NAME)
@@ -42,4 +39,5 @@ uninstall-systemd:
 
 uninstall: uninstall-systemd
 	rm -f $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
+	rm -f $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
 	rm -f $(SYSTEMD_POLICY_PATH)/$(SYSTEMD_POLICY_NAME)
