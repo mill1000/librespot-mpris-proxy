@@ -1,4 +1,5 @@
 TARGET_NAME ?= librespot-mpris-proxy
+ONEVENT_NAME ?= librespot-onevent
 PREFIX ?= /usr/local
 
 SYSTEMD_SERVICE_NAME ?= $(TARGET_NAME).service
@@ -23,10 +24,15 @@ install-bin: $(TARGET_NAME).py
 	cp $< $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
 	chmod +x $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
 
+install-onevent: $(ONEVENT_NAME).py 
+	@$(MKDIR_P) $(DESTDIR)$(PREFIX)/bin
+	cp $< $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
+	chmod +x $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
+
 install-policy: $(SYSTEMD_POLICY_NAME)
 	cp $< $(SYSTEMD_POLICY_PATH)/
 
-install: install-bin install-policy install-systemd
+install: install-bin install-onevent install-policy install-systemd
 
 uninstall-systemd:
 	systemctl disable $(SYSTEMD_SERVICE_NAME)
