@@ -9,7 +9,11 @@ SUPPORTED_EVENTS = {
     "paused": "Paused"
 }
 
-event = os.environ['PLAYER_EVENT']
+try:
+    event = os.environ['PLAYER_EVENT']
+except KeyError:
+    print(f"No PLAYER_EVENT environment variable set.")
+    exit()
 
 if event not in SUPPORTED_EVENTS:
     print(f"Received unsupported event: '{event}'.")
