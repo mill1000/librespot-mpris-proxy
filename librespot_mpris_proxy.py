@@ -4,10 +4,13 @@ import asyncio
 import os
 import re
 import stat
+import logging
 
 from dbus_next import BusType, PropertyAccess
 from dbus_next.aio import MessageBus
 from dbus_next.service import ServiceInterface, dbus_property
+
+_LOGGER = logging.getLogger("librespot-mpris-proxy")
 
 
 class MediaPlayer2Interface(ServiceInterface):
@@ -84,23 +87,26 @@ class MediaPlayer2PlayerInterface(ServiceInterface):
 
 
 async def _run():
+    logging.basicConfig(
+        format='%(levelname)s: %(message)s', level=logging.INFO)
+
     # Connect to the system bus
-    print("Connecting to system bus.")
+    _LOGGER.info("Connecting to system bus.")
     bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
 
     # Construct and export our interfaces
-    print("Exporting MediaPlayer2 interface.")
+    _LOGGER.info("Exporting MediaPlayer2 interface.")
     mediaplayer2 = MediaPlayer2Interface()
     bus.export("/org/mpris/MediaPlayer2", mediaplayer2)
 
-    print("Exporting MediaPlayer2.Player interface.")
+    _LOGGER.info("Exporting MediaPlayer2.Player interface.")
     player = MediaPlayer2PlayerInterface()
     bus.export("/org/mpris/MediaPlayer2", player)
 
     # Acquire our friendly name
     # TODO generate this on demand?
     name = f"org.mpris.MediaPlayer2.librespot_proxy.pid{os.getpid()}"
-    print(f"Requesting friendly name '{name}' on bus.")
+    _LOGGER.info(f"Requesting friendly name '{name}' on bus.")
     await bus.request_name(name)
 
     # Create the named pipe
@@ -124,7 +130,7 @@ async def _run():
             continue
 
         status = matches.group(1)
-        print(f"Set Playback Status: {status}")
+        _LOGGER.info(f"Set Playback Status: {status}")
         player.set_playback_status(status)
 
         # Sleep to allow async tasks to run before blocking again
