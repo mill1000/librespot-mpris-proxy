@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "librespot-mpris-proxy"
+description = "Proxy events from librespot events to MPRIS D-Bus signals."
+version = "1.0.0"
+readme = "README.md"
+authors = [
+  {name = "Tucker Kern", email = "tuckkern@gmail.com"},
+]
+requires-python = ">=3.8"
+license = {text = "MIT"}
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+dependencies = [
+  "dbus-next"
+]
+
+[project.urls]
+Repository = "https://github.com/mill1000/librespot-mpris-proxy"
+Issues = "https://github.com/mill1000/librespot-mpris-proxy/issues"
+
+[project.scripts]
+librespot-mpris-proxy = "librespot_mpris_proxy:main"
+
+[tool.setuptools]
+py-modules = ["librespot_mpris_proxy"]

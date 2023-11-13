@@ -1,13 +1,13 @@
-#! /bin/env python3
+#!/usr/bin/env python3
 
+import asyncio
+import os
+import re
+import stat
+
+from dbus_next import BusType, PropertyAccess
 from dbus_next.aio import MessageBus
 from dbus_next.service import ServiceInterface, dbus_property
-from dbus_next import BusType, PropertyAccess
-
-import os
-import stat
-import asyncio
-import re
 
 
 class MediaPlayer2Interface(ServiceInterface):
@@ -83,7 +83,7 @@ class MediaPlayer2PlayerInterface(ServiceInterface):
         return False
 
 
-async def main():
+async def _run():
     # Connect to the system bus
     print("Connecting to system bus.")
     bus = await MessageBus(bus_type=BusType.SYSTEM).connect()
@@ -131,7 +131,13 @@ async def main():
         # TODO might want to re-eval aiofiles
         await asyncio.sleep(1)
 
-try:
-    asyncio.run(main())
-except KeyboardInterrupt:
-    pass
+
+def main():
+    try:
+        asyncio.run(_run())
+    except KeyboardInterrupt:
+        pass
+
+
+if __name__ == "__main__":
+    main()

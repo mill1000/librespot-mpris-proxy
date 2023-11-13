@@ -19,12 +19,11 @@ install-systemd: $(SYSTEMD_SERVICE_NAME)
 	systemctl enable $(SYSTEMD_SERVICE_NAME)
 	systemctl start $(SYSTEMD_SERVICE_NAME)
 
-install-bin: $(TARGET_NAME).py $(ONEVENT_NAME).py
+install-bin: $(ONEVENT_NAME).py
 	@$(MKDIR_P) $(DESTDIR)$(PREFIX)/bin
-	cp $< $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
-	chmod +x $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
 	cp $< $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
 	chmod +x $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
+	pipx install .
 
 install-policy: $(SYSTEMD_POLICY_NAME)
 	cp $< $(SYSTEMD_POLICY_PATH)/
@@ -38,6 +37,6 @@ uninstall-systemd:
 	rm -f $(SYSTEMD_SERVICE_PATH)/$(SYSTEMD_SERVICE_NAME)
 
 uninstall: uninstall-systemd
-	rm -f $(DESTDIR)$(PREFIX)/bin/${TARGET_NAME}
 	rm -f $(DESTDIR)$(PREFIX)/bin/${ONEVENT_NAME}
 	rm -f $(SYSTEMD_POLICY_PATH)/$(SYSTEMD_POLICY_NAME)
+	pipx uninstall $(TARGET_NAME)

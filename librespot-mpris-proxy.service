@@ -4,10 +4,10 @@ After=dbus.service network-online.target
 Wants=dbus.service network-online.target
 
 [Service]
-ExecStart=/usr/local/bin/librespot-mpris-proxy
+ExecStart=/home/pi/.local/bin/librespot-mpris-proxy
 StandardOutput=journal
 StandardError=journal
-SyslogIdentifier=librespot-mpris-monitor
+SyslogIdentifier=librespot-mpris-proxy
 
 [Install]
 WantedBy=multi-user.target
