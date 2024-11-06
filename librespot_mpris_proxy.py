@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import asyncio
+import logging
 import os
 import re
 import stat
-import logging
 
 from dbus_next import BusType, PropertyAccess
 from dbus_next.aio import MessageBus
